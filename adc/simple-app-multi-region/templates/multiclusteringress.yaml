@@ -1,0 +1,14 @@
+{{- if .Values.isConfigCluster }}
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: {{ include "multi-region-app.fullname" . }}
+  labels:
+    {{- include "multi-region-app.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: {{ include "multi-region-app.fullname" . }}
+        servicePort: 8080
+{{- end }}
